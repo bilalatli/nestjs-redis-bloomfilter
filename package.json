@@ -1,0 +1,38 @@
+{
+  "name": "nestjs-redis-bloomfilter",
+  "version": "1.0.0",
+  "description": "NestJS - Redis Bloom Filters Extension",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepublish": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bilalatli/nestjs-redis-bloomfilter.git"
+  },
+  "keywords": [
+    "nestjs-bloomfilter",
+    "nestjs",
+    "bloom",
+    "filters",
+    "redis"
+  ],
+  "author": "Bilal ATLI <ytbilalatli[at]gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/bilalatli/nestjs-redis-bloomfilter#readme",
+  "bugs": {
+    "url": "https://github.com/bilalatli/nestjs-redis-bloomfilter/issues"
+  },
+  "dependencies": {
+    "ioredis": "^5.3.0"
+  },
+  "devDependencies": {
+    "@nestjs/common": "10.0.0",
+    "@nestjs/core": "10.0.0",
+    "@types/node": "^16.18.82",
+    "typescript": "^4.9.5"
+  }
+}
