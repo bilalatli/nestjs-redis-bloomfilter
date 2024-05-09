@@ -1,6 +1,6 @@
 import { Module, DynamicModule, Provider } from '@nestjs/common';
 import { BLOOM_FILTER_OPTIONS } from './bloom-filter.constant';
-import { IBloomFilterAsyncOptions, IBloomFilterOptions, IBloomFilterOptionsFactory } from './interfaces/bloom-filter-options.interface';
+import { IBloomFilterAsyncOptions, IBloomFilterOptions, IBloomFilterOptionsFactory } from './interfaces';
 import { BloomFilterService } from './bloom-filter.service';
 
 function createRedisLockProvider(options: IBloomFilterOptions): any[] {
