@@ -1,5 +1,5 @@
 {
-  "name": "nestjs-redis-bloomfilter",
+  "name": "@bilalatli/nestjs-redis-bloomfilter",
   "version": "1.0.1",
   "description": "NestJS - Redis Bloom Filters Extension",
   "main": "index.js",
