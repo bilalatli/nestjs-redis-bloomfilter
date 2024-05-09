@@ -1,18 +1,17 @@
-import {Injectable, Inject} from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import Redis from 'ioredis';
-import {BLOOM_FILTER_OPTIONS} from "./bloom-filter.constant";
-import {IBloomFilterOptions} from "./interfaces/bloom-filter-options.interface";
-import {BloomFilterInfoAttribute, BloomFilterInsertFlags, BloomFilterItem, BloomFilterKey} from "./types";
+import { BLOOM_FILTER_OPTIONS } from './bloom-filter.constant';
+import { IBloomFilterOptions } from './interfaces/bloom-filter-options.interface';
+import { BloomFilterInfoAttribute, BloomFilterInsertFlags, BloomFilterItem, BloomFilterKey } from './types';
 
 // TODO: Add return interfaces
 
 @Injectable()
 export class BloomFilterService {
-  constructor(@Inject(BLOOM_FILTER_OPTIONS) protected readonly config: IBloomFilterOptions) {
-  }
+  constructor(@Inject(BLOOM_FILTER_OPTIONS) protected readonly config: IBloomFilterOptions) {}
 
   private getClient(): Redis {
-    return this.config.client
+    return this.config.client;
   }
 
   public async add(key: BloomFilterKey, item: BloomFilterItem) {
@@ -60,11 +59,9 @@ export class BloomFilterService {
     let nonScaling: boolean;
 
     const reserveArgs = [key, errorRate, capacity];
-    nonScaling = (expansion > 0);
-    if (!nonScaling)
-      reserveArgs.push('EXPANSION', expansion);
-    else
-      reserveArgs.push('NONSCALING');
+    nonScaling = expansion > 0;
+    if (!nonScaling) reserveArgs.push('EXPANSION', expansion);
+    else reserveArgs.push('NONSCALING');
 
     return this.getClient().call('BF.RESERVE', reserveArgs);
   }
@@ -72,6 +69,4 @@ export class BloomFilterService {
   public async scanDump(key: BloomFilterKey, iterator: number) {
     return this.getClient().call('BF.SCANDUMP', iterator);
   }
-
-
 }

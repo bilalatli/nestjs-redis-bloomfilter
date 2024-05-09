@@ -1,5 +1,5 @@
-import Redis from "ioredis";
-import {ModuleMetadata, Type} from "@nestjs/common";
+import Redis from 'ioredis';
+import { ModuleMetadata, Type } from '@nestjs/common';
 
 export interface IBloomFilterOptions {
   /**

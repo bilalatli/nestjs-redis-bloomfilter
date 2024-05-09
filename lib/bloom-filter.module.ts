@@ -1,14 +1,10 @@
-import {Module, DynamicModule, Provider} from '@nestjs/common';
-import {BLOOM_FILTER_OPTIONS} from './bloom-filter.constant';
-import {
-  IBloomFilterAsyncOptions,
-  IBloomFilterOptions,
-  IBloomFilterOptionsFactory
-} from "./interfaces/bloom-filter-options.interface";
-import {BloomFilterService} from "./bloom-filter.service";
+import { Module, DynamicModule, Provider } from '@nestjs/common';
+import { BLOOM_FILTER_OPTIONS } from './bloom-filter.constant';
+import { IBloomFilterAsyncOptions, IBloomFilterOptions, IBloomFilterOptionsFactory } from './interfaces/bloom-filter-options.interface';
+import { BloomFilterService } from './bloom-filter.service';
 
 function createRedisLockProvider(options: IBloomFilterOptions): any[] {
-  return [{provide: BLOOM_FILTER_OPTIONS, useValue: options || {}}];
+  return [{ provide: BLOOM_FILTER_OPTIONS, useValue: options || {} }];
 }
 
 @Module({
@@ -16,17 +12,17 @@ function createRedisLockProvider(options: IBloomFilterOptions): any[] {
   providers: [BloomFilterService],
   exports: [BloomFilterService],
 })
-export class RedisLockModule {
+export class BloomFilterModule {
   static register(options: IBloomFilterOptions): DynamicModule {
     return {
-      module: RedisLockModule,
+      module: BloomFilterModule,
       providers: createRedisLockProvider(options),
     };
   }
 
   static registerAsync(options: IBloomFilterAsyncOptions): DynamicModule {
     return {
-      module: RedisLockModule,
+      module: BloomFilterModule,
       imports: options.imports || [],
       providers: this.createAsyncProviders(options),
     };
@@ -41,8 +37,8 @@ export class RedisLockModule {
       {
         provide: options.useClass,
         useClass: options.useClass,
-      }
-    ]
+      },
+    ];
   }
 
   private static createAsyncOptionsProvider(options: IBloomFilterAsyncOptions): Provider {
