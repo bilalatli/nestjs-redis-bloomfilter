@@ -3,7 +3,7 @@ import Redis from 'ioredis';
 import { BLOOM_FILTER_OPTIONS } from './bloom-filter.constant';
 import { IBloomFilterInfo, IBloomFilterOptions } from './interfaces';
 import { BloomFilterInfoAttribute, BloomFilterInsertFlags, BloomFilterItem, BloomFilterKey } from './types';
-import { BloomFilterUnknownException, FilterAlreadyExists, NonScalingFilterIsFull } from './exceptions';
+import { BloomFilterUnknownException, FilterAlreadyExists, NonScalingFilterIsFull, BloomFilterInstallationException } from './exceptions';
 
 @Injectable()
 export class BloomFilterService {
@@ -19,10 +19,30 @@ export class BloomFilterService {
     'Expansion rate': 'EXPANSION_RATE',
   };
 
-  constructor(@Inject(BLOOM_FILTER_OPTIONS) protected readonly config: IBloomFilterOptions) {}
+  constructor(@Inject(BLOOM_FILTER_OPTIONS) protected readonly config: IBloomFilterOptions) {
+    if (!this.config.client && !this.config.connection) {
+      throw new BloomFilterInstallationException(`Connection config or client must defined in options`);
+    }
+    if (!this.config.client) {
+      this.config.client = new Redis({
+        host: this.config.connection.host || '127.0.0.1',
+        port: this.config.connection.port || 6379,
+        db: this.config.connection.db,
+        username: this.config.connection.username,
+        password: this.config.connection.password,
+      });
+    }
+  }
 
   private getClient(): Redis {
     return this.config.client;
+  }
+
+  /**
+   * Check connection with ping command
+   */
+  public async isConnected() {
+    return (await this.config.client.ping()) === 'PONG';
   }
 
   /**

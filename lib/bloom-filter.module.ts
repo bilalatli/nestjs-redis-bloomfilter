@@ -3,7 +3,7 @@ import { BLOOM_FILTER_OPTIONS } from './bloom-filter.constant';
 import { IBloomFilterAsyncOptions, IBloomFilterOptions, IBloomFilterOptionsFactory } from './interfaces';
 import { BloomFilterService } from './bloom-filter.service';
 
-function createRedisLockProvider(options: IBloomFilterOptions): any[] {
+function createBloomFilterProvider(options: IBloomFilterOptions): any[] {
   return [{ provide: BLOOM_FILTER_OPTIONS, useValue: options || {} }];
 }
 
@@ -16,7 +16,7 @@ export class BloomFilterModule {
   static register(options: IBloomFilterOptions): DynamicModule {
     return {
       module: BloomFilterModule,
-      providers: createRedisLockProvider(options),
+      providers: createBloomFilterProvider(options),
     };
   }
 

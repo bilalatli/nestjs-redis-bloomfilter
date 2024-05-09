@@ -1,19 +1,24 @@
 import Redis from 'ioredis';
 import { ModuleMetadata, Type } from '@nestjs/common';
 
+interface IRedisConnectionConfig {
+  host: string,
+  port: number,
+  username?: string,
+  password?: string,
+  db?: number,
+}
+
 export interface IBloomFilterOptions {
-  /**
-   * Default expansion scale
-   */
-  expansion?: number;
-  /**
-   * Default error rate
-   */
-  errorRate?: number;
   /**
    * IORedis client
    */
   client?: Redis;
+
+  /**
+   * Create connection configurations
+   */
+  connection?: IRedisConnectionConfig,
 }
 
 export interface IBloomFilterOptionsFactory {
