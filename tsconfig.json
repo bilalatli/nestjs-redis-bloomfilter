@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
-    "removeComments": true,
+    "removeComments": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es6",
@@ -12,7 +12,7 @@
     "incremental": true
   },
   "include": [
-    "lib/**/*",
+    "lib/**/*"
   ],
   "exclude": [
     "node_modules"
