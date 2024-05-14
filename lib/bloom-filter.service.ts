@@ -66,7 +66,7 @@ export class BloomFilterService {
         return response === 1;
       })
       .catch((err: string) => {
-        if (err.indexOf('non scaling filter is full')) {
+        if (err.indexOf('non scaling filter is full') !== -1) {
           throw new NonScalingFilterIsFull(key);
         }
         throw new BloomFilterUnknownException(err);
@@ -280,7 +280,7 @@ export class BloomFilterService {
         return response === 'OK';
       })
       .catch((err: string) => {
-        if (err.indexOf('item exists')) {
+        if (err.indexOf('item exists') !== -1) {
           throw new FilterAlreadyExists(key);
         }
         throw new BloomFilterUnknownException(err);
